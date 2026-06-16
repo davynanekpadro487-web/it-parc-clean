@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_it_parc_root"
+              name="IT Parc"
+              sequence="50"
+              web_icon="it_parc,static/src/img/icon.png"
+              groups="it_parc.group_it_technicien"/>
+
+    <menuitem id="menu_it_parc_equipements"
+              name="Équipements"
+              parent="menu_it_parc_root"
+              sequence="10"/>
+
+    <menuitem id="menu_it_parc_interventions"
+              name="Interventions"
+              parent="menu_it_parc_root"
+              sequence="20"/>
+
+    <menuitem id="menu_it_parc_contrats"
+              name="Contrats"
+              parent="menu_it_parc_root"
+              sequence="30"/>
+
+    <menuitem id="menu_it_parc_alertes"
+              name="Alertes"
+              parent="menu_it_parc_root"
+              sequence="40"/>
+
+    <menuitem id="menu_it_parc_dashboard"
+              name="Dashboard"
+              parent="menu_it_parc_root"
+              action="action_it_parc_dashboard"
+              sequence="50"/>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wizard_import_csv_form"
+            model="ir.ui.view">
+        <field name="name">wizard.import.csv.form</field>
+        <field name="model">wizard.import.csv</field>
+        <field name="arch" type="xml">
+            <form string="Import CSV Équipements">
+                <group invisible="state == 'done'">
+                    <field name="fichier_csv" 
+                           widget="binary"
+                           filename="nom_fichier"/>
+                    <field name="nom_fichier" 
+                           invisible="1"/>
+                    <field name="delimiteur"/>
+                </group>
+                <group string="Résultats" 
+                       invisible="state == 'draft'">
+                    <field name="nb_crees"/>
+                    <field name="nb_ignores"/>
+                    <field name="nb_erreurs"/>
+                    <field name="rapport" 
+                           widget="text"
+                           readonly="1"/>
+                </group>
+                <footer>
+                    <button name="action_importer"
+                            string="Importer"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state == 'done'"/>
+                    <button string="Fermer"
+                            special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_import_csv"
+            model="ir.actions.act_window">
+        <field name="name">Importer CSV</field>
+        <field name="res_model">wizard.import.csv</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_it_import_csv"
+              name="Importer des équipements (CSV)"
+              parent="menu_it_parc_equipements"
+              action="action_wizard_import_csv"
+              sequence="20"/>
+</odoo>

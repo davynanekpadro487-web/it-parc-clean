@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_it_intervention_list" 
+            model="ir.ui.view">
+        <field name="name">it.intervention.list</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <list string="Interventions">
+                <field name="name"/>
+                <field name="equipement_id"/>
+                <field name="type_intervention"/>
+                <field name="technicien_id"/>
+                <field name="date_debut"/>
+                <field name="date_fin"/>
+                <field name="duree"/>
+                <field name="cout"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_it_intervention_form" 
+            model="ir.ui.view">
+        <field name="name">it.intervention.form</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <form string="Intervention">
+                <header>
+                    <button name="%(action_it_equipement)s"
+                            string="En cours"
+                            type="action"
+                            class="btn-primary"
+                            invisible="state != 'planifie'"/>
+                    <field name="state" 
+                           widget="statusbar"
+                           statusbar_visible="planifie,en_cours,termine"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Informations">
+                            <field name="name" readonly="1"/>
+                            <field name="equipement_id"/>
+                            <field name="type_intervention"/>
+                            <field name="technicien_id"/>
+                            <field name="cout"/>
+                        </group>
+                        <group string="Dates">
+                            <field name="date_debut"/>
+                            <field name="date_fin"/>
+                            <field name="duree" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" 
+                               string="Description du problème"/>
+                        <field name="rapport" 
+                               string="Rapport d'intervention"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_it_intervention" 
+            model="ir.actions.act_window">
+        <field name="name">Interventions</field>
+        <field name="res_model">it.intervention</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_it_intervention_list"
+              name="Toutes les interventions"
+              parent="menu_it_parc_interventions"
+              action="action_it_intervention"
+              sequence="10"/>
+
+</odoo>

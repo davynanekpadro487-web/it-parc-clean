@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vue liste équipements -->
+    <record id="view_it_equipement_list" 
+            model="ir.ui.view">
+        <field name="name">it.equipement.list</field>
+        <field name="model">it.equipement</field>
+        <field name="arch" type="xml">
+            <list string="Équipements">
+                <field name="reference"/>
+                <field name="name"/>
+                <field name="categorie"/>
+                <field name="marque"/>
+                <field name="numero_serie"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="date_garantie"/>
+                <field name="jours_garantie_restants"
+                       decoration-danger="jours_garantie_restants &lt; 30"
+                       decoration-warning="jours_garantie_restants &lt; 90"/>
+                <field name="state"
+                       decoration-success="state == 'affecte'"
+                       decoration-warning="state == 'maintenance'"
+                       decoration-danger="state == 'retire'"
+                       widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vue formulaire équipement -->
+    <record id="view_it_equipement_form" 
+            model="ir.ui.view">
+        <field name="name">it.equipement.form</field>
+        <field name="model">it.equipement</field>
+        <field name="arch" type="xml">
+            <form string="Équipement">
+                <header>
+                    <button name="action_affecter"
+                            string="Affecter"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'brouillon'"/>
+                    <button name="action_maintenance"
+                            string="En maintenance"
+                            type="object"
+                            invisible="state != 'affecte'"/>
+                    <button name="action_retirer"
+                            string="Retirer"
+                            type="object"
+                            class="btn-danger"
+                            invisible="state == 'retire'"/>
+                    <button name="action_brouillon"
+                            string="Remettre en brouillon"
+                            type="object"
+                            invisible="state != 'retire'"/>
+                    <field name="state" 
+                           widget="statusbar"
+                           statusbar_visible="brouillon,affecte,maintenance,retire"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" 
+                                   placeholder="Nom de l'équipement"/>
+                        </h1>
+                        <h2>
+                            <field name="reference" 
+                                   readonly="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="Informations générales">
+                            <field name="categorie"/>
+                            <field name="marque"/>
+                            <field name="modele"/>
+                            <field name="numero_serie"/>
+                            <field name="localisation"/>
+                        </group>
+                        <group string="Affectation">
+                            <field name="employee_id"/>
+                            <field name="department_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Informations financières">
+                            <field name="valeur_achat"/>
+                            <field name="date_achat"/>
+                        </group>
+                        <group string="Garantie">
+                            <field name="date_garantie"/>
+                            <field name="jours_garantie_restants"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Interventions">
+                            <field name="intervention_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="type_intervention"/>
+                                    <field name="technicien_id"/>
+                                    <field name="date_debut"/>
+                                    <field name="date_fin"/>
+                                    <field name="duree"/>
+                                    <field name="cout"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Historique affectations">
+                            <field name="affectation_ids">
+                                <list>
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="date_affectation"/>
+                                    <field name="date_retour"/>
+                                    <field name="motif"/>
+                                    <field name="actif"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Statistiques">
+                            <group>
+                                <field name="nb_interventions" 
+                                       readonly="1"/>
+                                <field name="cout_total_maintenance" 
+                                       readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue recherche équipement -->
+    <record id="view_it_equipement_search" 
+            model="ir.ui.view">
+        <field name="name">it.equipement.search</field>
+        <field name="model">it.equipement</field>
+        <field name="arch" type="xml">
+            <search string="Équipements">
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="numero_serie"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <filter string="Brouillon" 
+                        name="brouillon"
+                        domain="[('state','=','brouillon')]"/>
+                <filter string="Affectés" 
+                        name="affecte"
+                        domain="[('state','=','affecte')]"/>
+                <filter string="En maintenance" 
+                        name="maintenance"
+                        domain="[('state','=','maintenance')]"/>
+                <filter string="Retirés" 
+                        name="retire"
+                        domain="[('state','=','retire')]"/>
+                <separator/>
+                <filter string="Garantie expirée" 
+                        name="garantie_expiree"
+                        domain="[('jours_garantie_restants','&lt;',0)]"/>
+                <filter string="Garantie &lt; 30 jours" 
+                        name="garantie_30j"
+                        domain="[('jours_garantie_restants','&lt;',30),
+                                 ('jours_garantie_restants','&gt;',0)]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Catégorie" 
+                            name="by_categorie"
+                            context="{'group_by': 'categorie'}"/>
+                    <filter string="État" 
+                            name="by_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Département" 
+                            name="by_department"
+                            context="{'group_by': 'department_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action fenêtre équipements -->
+    <record id="action_it_equipement" 
+            model="ir.actions.act_window">
+        <field name="name">Équipements</field>
+        <field name="res_model">it.equipement</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" 
+               ref="view_it_equipement_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créez votre premier équipement !
+            </p>
+        </field>
+    </record>
+
+    <!-- Mise à jour menu équipements -->
+    <menuitem id="menu_it_equipement_list"
+              name="Tous les équipements"
+              parent="menu_it_parc_equipements"
+              action="action_it_equipement"
+              sequence="10"/>
+
+</odoo>

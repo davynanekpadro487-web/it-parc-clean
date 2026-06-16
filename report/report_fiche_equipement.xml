@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Action rapport fiche équipement -->
+    <record id="action_report_fiche_equipement"
+            model="ir.actions.report">
+        <field name="name">Fiche Équipement</field>
+        <field name="model">it.equipement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">it_parc.report_fiche_equipement_document</field>
+        <field name="report_file">it_parc.report_fiche_equipement_document</field>
+        <field name="binding_model_id" 
+               ref="model_it_equipement"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Template QWeb fiche équipement -->
+    <template id="report_fiche_equipement_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h2 class="text-center"
+                                    style="color:#1a3c5e;">
+                                    FICHE ÉQUIPEMENT INFORMATIQUE
+                                </h2>
+                                <hr/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <table class="table table-bordered">
+                                    <thead style="background:#1a3c5e; color:white;">
+                                        <tr>
+                                            <th colspan="2">
+                                                Informations générales
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Référence</strong></td>
+                                            <td>
+                                                <t t-esc="doc.reference"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Nom</strong></td>
+                                            <td>
+                                                <t t-esc="doc.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Catégorie</strong></td>
+                                            <td>
+                                                <t t-esc="dict(doc._fields['categorie'].selection).get(doc.categorie)"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Marque</strong></td>
+                                            <td>
+                                                <t t-esc="doc.marque"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Modèle</strong></td>
+                                            <td>
+                                                <t t-esc="doc.modele"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>N° Série</strong></td>
+                                            <td>
+                                                <t t-esc="doc.numero_serie"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>État</strong></td>
+                                            <td>
+                                                <t t-esc="dict(doc._fields['state'].selection).get(doc.state)"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class="table table-bordered">
+                                    <thead style="background:#1a3c5e; color:white;">
+                                        <tr>
+                                            <th colspan="2">
+                                                Affectation et garantie
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Employé</strong></td>
+                                            <td>
+                                                <t t-esc="doc.employee_id.name or '-'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Département</strong></td>
+                                            <td>
+                                                <t t-esc="doc.department_id.name or '-'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Localisation</strong></td>
+                                            <td>
+                                                <t t-esc="doc.localisation or '-'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Date achat</strong></td>
+                                            <td>
+                                                <t t-esc="doc.date_achat or '-'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Valeur achat</strong></td>
+                                            <td>
+                                                <t t-esc="'{:,.0f}'.format(doc.valeur_achat)"/> FCFA
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Fin garantie</strong></td>
+                                            <td>
+                                                <t t-esc="doc.date_garantie or '-'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Jours garantie</strong></td>
+                                            <td>
+                                                <t t-esc="doc.jours_garantie_restants"/> jours
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Interventions -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h4 style="color:#1a3c5e;">
+                                    Historique des interventions
+                                </h4>
+                                <table class="table table-bordered table-sm">
+                                    <thead style="background:#1a3c5e; color:white;">
+                                        <tr>
+                                            <th>Référence</th>
+                                            <th>Type</th>
+                                            <th>Technicien</th>
+                                            <th>Date début</th>
+                                            <th>Durée (h)</th>
+                                            <th>Coût (FCFA)</th>
+                                            <th>État</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.intervention_ids"
+                                           t-as="inter">
+                                            <tr>
+                                                <td>
+                                                    <t t-esc="inter.name"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="inter.type_intervention"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="inter.technicien_id.name or '-'"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="inter.date_debut"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="'{:.1f}'.format(inter.duree)"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="'{:,.0f}'.format(inter.cout)"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="inter.state"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="not doc.intervention_ids">
+                                            <tr>
+                                                <td colspan="7" 
+                                                    class="text-center">
+                                                    Aucune intervention
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                <strong>Total</strong>
+                                            </td>
+                                            <td>
+                                                <strong>
+                                                    <t t-esc="'{:,.0f}'.format(doc.cout_total_maintenance)"/> FCFA
+                                                </strong>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Pied de page -->
+                        <div class="row mt-4">
+                            <div class="col-12 text-right">
+                                <small class="text-muted">
+                                    TECHPARK CI - 
+                                    Gestion Parc Informatique -
+                                    Imprimé le 
+                                    <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

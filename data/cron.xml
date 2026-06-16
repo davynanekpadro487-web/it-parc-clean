@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cron_it_parc_alertes" 
+            model="ir.cron">
+        <field name="name">IT Parc - Générer alertes automatiques</field>
+        <field name="model_id" 
+               ref="model_it_equipement"/>
+        <field name="state">code</field>
+        <field name="code">
+            model.cron_generer_alertes()
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

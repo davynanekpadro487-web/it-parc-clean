@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════ -->
+    <!-- FOURNISSEURS (PARTNERS) -->
+    <!-- ═══════════════════════════════ -->
+
+    <record id="partner_dell" model="res.partner">
+        <field name="name">Dell Côte d'Ivoire</field>
+        <field name="is_company">True</field>
+    </record>
+
+    <record id="partner_microsoft" model="res.partner">
+        <field name="name">Microsoft West Africa</field>
+        <field name="is_company">True</field>
+    </record>
+
+    <record id="partner_cisco" model="res.partner">
+        <field name="name">Cisco Systems Senegal</field>
+        <field name="is_company">True</field>
+    </record>
+
+    <!-- ═══════════════════════════════ -->
+    <!-- ÉQUIPEMENTS (10 minimum) -->
+    <!-- ═══════════════════════════════ -->
+
+    <record id="equipement_001" 
+            model="it.equipement">
+        <field name="name">Dell Latitude 5520</field>
+        <field name="categorie">poste_travail</field>
+        <field name="marque">Dell</field>
+        <field name="modele">Latitude 5520</field>
+        <field name="numero_serie">DLL-5520-001</field>
+        <field name="valeur_achat">850000</field>
+        <field name="date_achat">2023-01-15</field>
+        <field name="date_garantie">2026-01-15</field>
+        <field name="localisation">Bureau 101 - Bâtiment A</field>
+        <field name="state">affecte</field>
+    </record>
+
+    <record id="equipement_002" 
+            model="it.equipement">
+        <field name="name">HP ProBook 450 G9</field>
+        <field name="categorie">poste_travail</field>
+        <field name="marque">HP</field>
+        <field name="modele">ProBook 450 G9</field>
+        <field name="numero_serie">HPB-450-002</field>
+        <field name="valeur_achat">720000</field>
+        <field name="date_achat">2022-06-10</field>
+        <field name="date_garantie">2025-06-10</field>
+        <field name="localisation">Bureau 205 - Bâtiment B</field>
+        <field name="state">affecte</field>
+    </record>
+
+    <record id="equipement_003" 
+            model="it.equipement">
+        <field name="name">Serveur Dell PowerEdge R740</field>
+        <field name="categorie">serveur</field>
+        <field name="marque">Dell</field>
+        <field name="modele">PowerEdge R740</field>
+        <field name="numero_serie">SRV-R740-001</field>
+        <field name="valeur_achat">4500000</field>
+        <field name="date_achat">2021-03-20</field>
+        <field name="date_garantie">2026-03-20</field>
+        <field name="localisation">Salle serveurs - RDC</field>
+        <field name="state">affecte</field>
+    </record>
+
+    <record id="equipement_004" 
+            model="it.equipement">
+        <field name="name">HP LaserJet Pro M404dn</field>
+        <field name="categorie">imprimante</field>
+        <field name="marque">HP</field>
+        <field name="modele">LaserJet Pro M404dn</field>
+        <field name="numero_serie">PRN-M404-001</field>
+        <field name="valeur_achat">280000</field>
+        <field name="date_achat">2022-09-05</field>
+        <field name="date_garantie">2025-09-05</field>
+        <field name="localisation">Couloir 1er étage</field>
+        <field name="state">affecte</field>
+    </record>
+
+    <record id="equipement_005" 
+            model="it.equipement">
+        <field name="name">Cisco Switch Catalyst 2960</field>
+        <field name="categorie">reseau</field>
+        <field name="marque">Cisco</field>
+        <field name="modele">Catalyst 2960</field>
+        <field name="numero_serie">CSC-2960-001</field>
+        <field name="valeur_achat">1200000</field>
+        <field name="date_achat">2020-11-15</field>
+        <field name="date_garantie">2025-11-15</field>
+        <field name="localisation">Baie réseau - Salle serveurs</field>
+        <field name="state">affecte</field>
+    </record>
+
+    <record id="equipement_006" 
+            model="it.equipement">
+        <field name="name">Lenovo ThinkPad E15</field>
+        <field name="categorie">poste_travail</field>
+        <field name="marque">Lenovo</field>
+        <field name="modele">ThinkPad E15</field>
+        <field name="numero_serie">LNV-E15-003</field>
+        <field name="valeur_achat">680000</field>
+        <field name="date_achat">2023-05-20</field>
+        <field name="date_garantie">2026-05-20</field>
+        <field name="localisation">Bureau 302 - Bâtiment A</field>
+        <field name="state">maintenance</field>
+    </record>
+
+    <record id="equipement_007" 
+            model="it.equipement">
+        <field name="name">Cisco IP Phone 7841</field>
+        <field name="categorie">telephone</field>
+        <field name="marque">Cisco</field>
+        <field name="modele">IP Phone 7841</field>
+        <field name="numero_serie">CSC-IP-007</field>
+        <field name="valeur_achat">95000</field>
+        <field name="date_achat">2021-08-10</field>
+        <field name="date_garantie">2024-08-10</field>
+        <field name="localisation">Accueil - RDC</field>
+        <field name="state">affecte</field>
+    </record>
+
+    <record id="equipement_008" 
+            model="it.equipement">
+        <field name="name">Onduleur APC Smart-UPS 1500</field>
+        <field name="categorie">autre</field>
+        <field name="marque">APC</field>
+        <field name="modele">Smart-UPS 1500</field>
+        <field name="numero_serie">APC-UPS-008</field>
+        <field name="valeur_achat">350000</field>
+        <field name="date_achat">2022-02-28</field>
+        <field name="date_garantie">2025-02-28</field>
+        <field name="localisation">Salle serveurs - RDC</field>
+        <field name="state">affecte</field>
+    </record>
+
+    <record id="equipement_009" 
+            model="it.equipement">
+        <field name="name">Dell OptiPlex 7090</field>
+        <field name="categorie">poste_travail</field>
+        <field name="marque">Dell</field>
+        <field name="modele">OptiPlex 7090</field>
+        <field name="numero_serie">DLL-OPT-009</field>
+        <field name="valeur_achat">550000</field>
+        <field name="date_achat">2021-12-01</field>
+        <field name="date_garantie">2024-12-01</field>
+        <field name="localisation">Salle de réunion - 2ème étage</field>
+        <field name="state">retire</field>
+    </record>
+
+    <record id="equipement_010" 
+            model="it.equipement">
+        <field name="name">NAS Synology DS920+</field>
+        <field name="categorie">serveur</field>
+        <field name="marque">Synology</field>
+        <field name="modele">DS920+</field>
+        <field name="numero_serie">SYN-DS920-010</field>
+        <field name="valeur_achat">980000</field>
+        <field name="date_achat">2023-03-15</field>
+        <field name="date_garantie">2026-03-15</field>
+        <field name="localisation">Salle serveurs - RDC</field>
+        <field name="state">affecte</field>
+    </record>
+
+    <!-- ═══════════════════════════════ -->
+    <!-- INTERVENTIONS (5 minimum) -->
+    <!-- ═══════════════════════════════ -->
+
+    <record id="intervention_001" 
+            model="it.intervention">
+        <field name="equipement_id" 
+               ref="equipement_001"/>
+        <field name="type_intervention">corrective</field>
+        <field name="date_debut">2026-01-10 08:00:00</field>
+        <field name="date_fin">2026-01-10 10:30:00</field>
+        <field name="cout">45000</field>
+        <field name="description">Remplacement du disque dur défaillant</field>
+        <field name="rapport">Disque SSD remplacé par un modèle 512Go. Données récupérées avec succès.</field>
+        <field name="state">termine</field>
+    </record>
+
+    <record id="intervention_002" 
+            model="it.intervention">
+        <field name="equipement_id" 
+               ref="equipement_003"/>
+        <field name="type_intervention">preventive</field>
+        <field name="date_debut">2026-02-15 09:00:00</field>
+        <field name="date_fin">2026-02-15 12:00:00</field>
+        <field name="cout">75000</field>
+        <field name="description">Maintenance préventive trimestrielle</field>
+        <field name="rapport">Nettoyage filtres, vérification disques, mise à jour firmware. RAS.</field>
+        <field name="state">termine</field>
+    </record>
+
+    <record id="intervention_003" 
+            model="it.intervention">
+        <field name="equipement_id" 
+               ref="equipement_006"/>
+        <field name="type_intervention">corrective</field>
+        <field name="date_debut">2026-03-05 14:00:00</field>
+        <field name="date_fin">2026-03-05 16:00:00</field>
+        <field name="cout">35000</field>
+        <field name="description">Écran endommagé après chute</field>
+        <field name="rapport">En attente de pièce de rechange. Équipement en maintenance.</field>
+        <field name="state">en_cours</field>
+    </record>
+
+    <record id="intervention_004" 
+            model="it.intervention">
+        <field name="equipement_id" 
+               ref="equipement_005"/>
+        <field name="type_intervention">corrective</field>
+        <field name="date_debut">2026-04-20 10:00:00</field>
+        <field name="date_fin">2026-04-20 11:30:00</field>
+        <field name="cout">25000</field>
+        <field name="description">Port réseau défaillant sur le switch</field>
+        <field name="rapport">Configuration VLAN réinitialisée. Port remplacé par module SFP.</field>
+        <field name="state">termine</field>
+    </record>
+
+    <record id="intervention_005" 
+            model="it.intervention">
+        <field name="equipement_id" 
+               ref="equipement_004"/>
+        <field name="type_intervention">preventive</field>
+        <field name="date_debut">2026-05-10 08:30:00</field>
+        <field name="date_fin">2026-05-10 09:30:00</field>
+        <field name="cout">15000</field>
+        <field name="description">Nettoyage et vérification cartouches</field>
+        <field name="rapport">Nettoyage complet effectué. Cartouche noire remplacée.</field>
+        <field name="state">termine</field>
+    </record>
+
+    <!-- ═══════════════════════════════ -->
+    <!-- CONTRATS (3 minimum) -->
+    <!-- ═══════════════════════════════ -->
+
+    <record id="contrat_001" 
+            model="it.contrat">
+        <field name="name">Contrat maintenance Dell 2026</field>
+        <field name="fournisseur_id" ref="partner_dell"/>
+        <field name="type_contrat">maintenance</field>
+        <field name="date_debut">2026-01-01</field>
+        <field name="date_fin">2026-07-15</field>
+        <field name="montant">2500000</field>
+        <field name="state">actif</field>
+    </record>
+
+    <record id="contrat_002" 
+            model="it.contrat">
+        <field name="name">Licence Microsoft 365 Business</field>
+        <field name="fournisseur_id" ref="partner_microsoft"/>
+        <field name="type_contrat">licence</field>
+        <field name="date_debut">2025-07-01</field>
+        <field name="date_fin">2026-06-30</field>
+        <field name="montant">4800000</field>
+        <field name="state">actif</field>
+    </record>
+
+    <record id="contrat_003" 
+            model="it.contrat">
+        <field name="name">Support Cisco SmartNet 2026</field>
+        <field name="fournisseur_id" ref="partner_cisco"/>
+        <field name="type_contrat">support</field>
+        <field name="date_debut">2026-01-15</field>
+        <field name="date_fin">2027-01-15</field>
+        <field name="montant">1800000</field>
+        <field name="state">actif</field>
+    </record>
+
+    <!-- ═══════════════════════════════ -->
+    <!-- ALERTES -->
+    <!-- ═══════════════════════════════ -->
+
+    <record id="alerte_001" 
+            model="it.alerte">
+        <field name="name">Garantie expirante - HP ProBook 450 G9</field>
+        <field name="type_alerte">garantie</field>
+        <field name="equipement_id" 
+               ref="equipement_002"/>
+        <field name="date_expiration">2025-06-10</field>
+        <field name="jours_restants">-5</field>
+        <field name="state">nouvelle</field>
+        <field name="message">La garantie du HP ProBook 450 G9 a expiré le 10/06/2025.</field>
+    </record>
+
+    <record id="alerte_002" 
+            model="it.alerte">
+        <field name="name">Contrat expirant - Microsoft 365</field>
+        <field name="type_alerte">contrat</field>
+        <field name="contrat_id" ref="contrat_002"/>
+        <field name="date_expiration">2026-06-30</field>
+        <field name="jours_restants">14</field>
+        <field name="state">nouvelle</field>
+        <field name="message">Le contrat Microsoft 365 Business expire le 30/06/2026.</field>
+    </record>
+
+</odoo>

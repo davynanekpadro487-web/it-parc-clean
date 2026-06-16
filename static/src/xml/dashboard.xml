@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+<t t-name="it_parc.Dashboard">
+    <div class="o_it_parc_dashboard">
+        
+        <!-- Header -->
+        <div class="dashboard-header" 
+             style="background: linear-gradient(135deg, #1a3c5e, #2e6da4); color:white;
+                    padding:30px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;
+                    border-bottom: 3px solid #c9a84c; box-shadow: 0 4px 15px rgba(0,0,0,0.15); margin-bottom:20px;">
+            <h1 style="margin:0; font-size:26px; font-weight:700; display: flex; align-items: center; gap: 10px;">
+                🖥️ IT Parc - Tableau de Bord
+            </h1>
+            <p style="margin:8px 0 0 0; opacity:0.9; font-size: 14px; font-weight: 500;">
+                TECHPARK CI - Gestion du Parc Informatique
+            </p>
+        </div>
+
+        <!-- Chargement -->
+        <t t-if="!state.loaded">
+            <div class="text-center p-5">
+                <i class="fa fa-spinner fa-spin fa-3x"/>
+                <p>Chargement des données...</p>
+            </div>
+        </t>
+
+        <!-- Erreur -->
+        <t t-if="state.error">
+            <div class="alert alert-danger m-3">
+                Erreur : <t t-esc="state.error"/>
+            </div>
+        </t>
+
+        <!-- Contenu -->
+        <t t-if="state.loaded and !state.error">
+            <div class="dashboard-body">
+                
+                <!-- KPIs Row 1 -->
+                <div class="row m-2">
+                    
+                    <!-- KPI Total équipements -->
+                    <div class="col-md-2 col-sm-6">
+                        <div class="card kpi-card kpi-total text-center shadow-sm"
+                              t-on-click="goToEquipements"
+                              style="cursor:pointer;">
+                            <div class="card-body p-0">
+                                <div class="kpi-number">
+                                    <t t-esc="state.kpis.total_equipements"/>
+                                </div>
+                                <div class="kpi-label">
+                                    Total équipements
+                                </div>
+                                <i class="fa fa-desktop fa-2x kpi-icon"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Affectés -->
+                    <div class="col-md-2 col-sm-6">
+                        <div class="card kpi-card kpi-affecte text-center shadow-sm">
+                            <div class="card-body p-0">
+                                <div class="kpi-number">
+                                    <t t-esc="state.kpis.par_etat.affecte"/>
+                                </div>
+                                <div class="kpi-label">
+                                    Affectés
+                                </div>
+                                <i class="fa fa-check-circle fa-2x kpi-icon"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI En maintenance -->
+                    <div class="col-md-2 col-sm-6">
+                        <div class="card kpi-card kpi-maintenance text-center shadow-sm">
+                            <div class="card-body p-0">
+                                <div class="kpi-number">
+                                    <t t-esc="state.kpis.par_etat.maintenance"/>
+                                </div>
+                                <div class="kpi-label">
+                                    En maintenance
+                                </div>
+                                <i class="fa fa-wrench fa-2x kpi-icon"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Alertes nouvelles -->
+                    <div class="col-md-2 col-sm-6">
+                        <div class="card kpi-card kpi-alerte text-center shadow-sm"
+                              t-on-click="goToAlertes"
+                              style="cursor:pointer;">
+                            <div class="card-body p-0">
+                                <div class="kpi-number">
+                                    <t t-esc="state.kpis.alertes_nouvelles"/>
+                                </div>
+                                <div class="kpi-label">
+                                    Alertes actives
+                                </div>
+                                <i class="fa fa-bell fa-2x kpi-icon"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Garanties critiques -->
+                    <div class="col-md-2 col-sm-6">
+                        <div class="card kpi-card kpi-garantie text-center shadow-sm">
+                            <div class="card-body p-0">
+                                <div class="kpi-number">
+                                    <t t-esc="state.kpis.garanties_critiques"/>
+                                </div>
+                                <div class="kpi-label">
+                                    Garanties &lt; 30j
+                                </div>
+                                <i class="fa fa-shield fa-2x kpi-icon"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Coût total -->
+                    <div class="col-md-2 col-sm-6">
+                        <div class="card kpi-card kpi-cout text-center shadow-sm"
+                              t-on-click="goToInterventions"
+                              style="cursor:pointer;">
+                            <div class="card-body p-0">
+                                <div class="kpi-number" style="font-size: 26px !important; margin-top: 10px; margin-bottom: 11px;">
+                                    <t t-esc="formattedCoutTotalMaintenance"/>
+                                </div>
+                                <div class="kpi-label">
+                                    Coût maintenance (F)
+                                </div>
+                                <i class="fa fa-money fa-2x kpi-icon"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Ligne de séparation élégante -->
+                <div style="border-top: 3px solid #1a3c5e; margin: 30px 20px; opacity: 0.8;"/>
+
+                <!-- Graphiques -->
+                <div class="row m-2">
+                    <div class="col-md-5">
+                        <div class="card shadow-sm" style="border-radius: 12px; overflow: hidden; border: none;">
+                            <div class="card-header"
+                                 style="background:#1a3c5e;
+                                        color:white;
+                                        padding: 15px;">
+                                <h5 class="mb-0" style="font-size: 1.1rem; font-weight: 600;">
+                                    📊 Répartition par catégorie
+                                </h5>
+                            </div>
+                            <div class="card-body" style="position: relative; height: 300px; padding: 20px; background: white;">
+                                <canvas t-ref="chartCategories"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card shadow-sm" style="border-radius: 12px; overflow: hidden; border: none;">
+                            <div class="card-header"
+                                 style="background:#1a3c5e;
+                                        color:white;
+                                        padding: 15px;">
+                                <h5 class="mb-0" style="font-size: 1.1rem; font-weight: 600;">
+                                    📈 Interventions par mois
+                                </h5>
+                            </div>
+                            <div class="card-body" style="position: relative; height: 300px; padding: 20px; background: white;">
+                                <canvas t-ref="chartInterventions"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contrats critiques -->
+                <div class="row m-2">
+                    <div class="col-12 text-center" style="margin-top: 15px;">
+                        <div class="card shadow-sm" style="border-radius: 12px; overflow: hidden; border: none;">
+                            <div class="card-header"
+                                 style="background:#f44336;
+                                        color:white;
+                                        padding: 15px;">
+                                <h5 class="mb-0" style="font-size: 1.1rem; font-weight: 600;">
+                                    ⚠️ Contrats expirant dans 60 jours : <t t-esc="state.kpis.contrats_critiques"/>
+                                </h5>
+                            </div>
+                            <div class="card-body" style="background: white; padding: 20px;">
+                                <button 
+                                    class="btn btn-outline-danger"
+                                    style="border-radius: 8px; padding: 8px 20px; font-weight: 600;"
+                                    t-on-click="goToContrats">
+                                    Voir les contrats critiques
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </t>
+        
+        <!-- Boutons de scroll fixes -->
+        <div class="scroll-buttons-container" style="position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 9999;">
+            <button class="btn btn-primary rounded-circle shadow-lg d-flex align-items-center justify-content-center"
+                    style="width: 45px; height: 45px; opacity: 0.8; transition: all 0.3s; border: none; background: #1a3c5e; cursor: pointer;"
+                    t-on-click="scrollToTop"
+                    title="Défiler vers le haut">
+                <i class="fa fa-chevron-up" style="color: white; font-size: 16px;"/>
+            </button>
+            <button class="btn btn-primary rounded-circle shadow-lg d-flex align-items-center justify-content-center"
+                    style="width: 45px; height: 45px; opacity: 0.8; transition: all 0.3s; border: none; background: #1a3c5e; cursor: pointer;"
+                    t-on-click="scrollToBottom"
+                    title="Défiler vers le bas">
+                <i class="fa fa-chevron-down" style="color: white; font-size: 16px;"/>
+            </button>
+        </div>
+    </div>
+</t>
+
+</templates>

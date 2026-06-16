@@ -1,0 +1,112 @@
+.o_it_parc_dashboard {
+    background: #f8f9fa;
+    overflow-y: scroll !important;
+    height: 100vh;
+    display: block;
+    padding-bottom: 50px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    position: relative;
+}
+
+.o_it_parc_dashboard .dashboard-body {
+    overflow: auto;
+    padding: 10px;
+}
+
+.o_it_parc_dashboard .dashboard-header {
+    border-bottom: 3px solid #c9a84c;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.o_it_parc_dashboard .kpi-card {
+    border: none;
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-bottom: 15px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    padding: 20px !important;
+}
+
+.o_it_parc_dashboard .kpi-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15) !important;
+}
+
+.o_it_parc_dashboard .kpi-number {
+    font-size: 42px !important;
+    font-weight: 800;
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.o_it_parc_dashboard .kpi-label {
+    font-weight: 600;
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.o_it_parc_dashboard .kpi-icon {
+    margin-top: 12px;
+    transition: transform 0.3s ease;
+}
+
+.o_it_parc_dashboard .kpi-card:hover .kpi-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* Contrasted KPI variations */
+.o_it_parc_dashboard .kpi-total {
+    border-left: 5px solid #0056b3 !important;
+}
+.o_it_parc_dashboard .kpi-total .kpi-number,
+.o_it_parc_dashboard .kpi-total .kpi-icon {
+    color: #0056b3 !important;
+}
+
+.o_it_parc_dashboard .kpi-affecte {
+    border-left: 5px solid #198754 !important;
+}
+.o_it_parc_dashboard .kpi-affecte .kpi-number,
+.o_it_parc_dashboard .kpi-affecte .kpi-icon {
+    color: #198754 !important;
+}
+
+.o_it_parc_dashboard .kpi-maintenance {
+    border-left: 5px solid #fd7e14 !important;
+}
+.o_it_parc_dashboard .kpi-maintenance .kpi-number,
+.o_it_parc_dashboard .kpi-maintenance .kpi-icon {
+    color: #fd7e14 !important;
+}
+
+.o_it_parc_dashboard .kpi-alerte {
+    border-left: 5px solid #dc3545 !important;
+}
+.o_it_parc_dashboard .kpi-alerte .kpi-number,
+.o_it_parc_dashboard .kpi-alerte .kpi-icon {
+    color: #dc3545 !important;
+}
+
+.o_it_parc_dashboard .kpi-garantie {
+    border-left: 5px solid #6f42c1 !important;
+}
+.o_it_parc_dashboard .kpi-garantie .kpi-number,
+.o_it_parc_dashboard .kpi-garantie .kpi-icon {
+    color: #6f42c1 !important;
+}
+
+.o_it_parc_dashboard .kpi-cout {
+    border-left: 5px solid #ffb100 !important;
+}
+.o_it_parc_dashboard .kpi-cout .kpi-number,
+.o_it_parc_dashboard .kpi-cout .kpi-icon {
+    color: #ffb100 !important;
+}
+
+/* Scroll button hover */
+.scroll-buttons-container button:hover {
+    opacity: 1 !important;
+    transform: scale(1.1);
+}
