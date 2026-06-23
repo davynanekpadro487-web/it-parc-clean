@@ -6,11 +6,14 @@
     'author': 'TECHPARK CI',
     'depends': ['base', 'hr', 'mail', 'web'],
     'data': [
-        'security/ir.model.access.csv',
         'security/security.xml',
+        'security/ir.model.access.csv',
         'data/sequences.xml',
         'data/cron.xml',
         'data/it_parc_demo.xml',
+        'report/report_fiche_equipement.xml',
+        'report/report_inventaire.xml',
+        'report/report_historique_maintenance.xml',
         'views/dashboard_action.xml',
         'views/menu.xml',
         'views/it_equipement_views.xml',
@@ -20,9 +23,6 @@
         'views/wizard_views.xml',
         'views/wizard_import_views.xml',
         'views/export_excel_views.xml',
-        'report/report_fiche_equipement.xml',
-        'report/report_inventaire.xml',
-        'report/report_maintenances.xml',
     ],
     'assets': {
         'web.assets_backend': [
