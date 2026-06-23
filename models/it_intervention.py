@@ -63,3 +63,25 @@ class ItIntervention(models.Model):
                     'it.intervention'
                 ) or 'Nouveau'
         return super().create(vals_list)
+
+    def action_en_cours(self):
+        self.write({'state': 'en_cours'})
+
+    def action_termine(self):
+        self.write({'state': 'termine'})
+
+
+class ReportHistoriqueMaintenance(models.AbstractModel):
+    _name = 'report.it_parc.report_historique_maintenance_document'
+    _description = "Rapport historique des maintenances"
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        docs = self.env['it.intervention'].browse(docids)
+        if not docs:
+            docs = self.env['it.intervention'].search([])
+        return {
+            'doc_ids': docids,
+            'doc_model': 'it.intervention',
+            'docs': docs,
+        }

@@ -7,6 +7,13 @@
         <field name="model">it.intervention</field>
         <field name="arch" type="xml">
             <list string="Interventions">
+                <header>
+                    <button name="%(it_parc.action_report_historique_maintenance)s"
+                            string="Historique Maintenances PDF"
+                            type="action"
+                            display="always"
+                            class="btn-primary"/>
+                </header>
                 <field name="name"/>
                 <field name="equipement_id"/>
                 <field name="type_intervention"/>
@@ -27,11 +34,16 @@
         <field name="arch" type="xml">
             <form string="Intervention">
                 <header>
-                    <button name="%(action_it_equipement)s"
+                    <button name="action_en_cours"
                             string="En cours"
-                            type="action"
+                            type="object"
                             class="btn-primary"
                             invisible="state != 'planifie'"/>
+                    <button name="action_termine"
+                            string="Terminé"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'en_cours'"/>
                     <field name="state" 
                            widget="statusbar"
                            statusbar_visible="planifie,en_cours,termine"/>
@@ -63,11 +75,29 @@
         </field>
     </record>
 
+    <!-- Vue Calendrier des interventions -->
+    <record id="view_it_intervention_calendar"
+            model="ir.ui.view">
+        <field name="name">it.intervention.calendar</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <calendar string="Interventions"
+                      date_start="date_debut"
+                      date_stop="date_fin"
+                      color="type_intervention"
+                      mode="month">
+                <field name="equipement_id"/>
+                <field name="technicien_id"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
     <record id="action_it_intervention" 
             model="ir.actions.act_window">
         <field name="name">Interventions</field>
         <field name="res_model">it.intervention</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,form,calendar</field>
     </record>
 
     <menuitem id="menu_it_intervention_list"
