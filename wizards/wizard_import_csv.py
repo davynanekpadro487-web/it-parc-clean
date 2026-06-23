@@ -49,7 +49,7 @@ class WizardImportCsv(models.TransientModel):
         nb_erreurs = 0
         rapport_lines = []
         
-        colonnes_requises = ['name', 'categorie', 'numero_serie']
+        colonnes_requises = ['nom', 'categorie', 'numero_serie']
         categories_valides = [
             'poste_travail', 'serveur', 'imprimante',
             'reseau', 'telephone', 'autre'
@@ -85,7 +85,7 @@ class WizardImportCsv(models.TransientModel):
                 
                 # Créer l'équipement
                 vals = {
-                    'name': ligne['name'],
+                    'name': ligne['nom'],
                     'categorie': categorie,
                     'numero_serie': numero_serie,
                     'marque': ligne.get('marque', ''),
@@ -107,7 +107,7 @@ class WizardImportCsv(models.TransientModel):
                 self.env['it.equipement'].create(vals)
                 nb_crees += 1
                 rapport_lines.append(
-                    f'Ligne {i}: CRÉÉ - {ligne["name"]}'
+                    f'Ligne {i}: CRÉÉ - {ligne["nom"]}'
                 )
                 
             except Exception as e:
