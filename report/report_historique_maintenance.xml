@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="action_report_inventaire"
+    <!-- Action du rapport PDF Historique de Maintenance -->
+    <record id="action_report_historique_maintenance"
             model="ir.actions.report">
-        <field name="name">Rapport d'inventaire</field>
-        <field name="model">it.equipement</field>
+        <field name="name">Historique des maintenances</field>
+        <field name="model">it.intervention</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">it_parc.report_inventaire_document</field>
-        <field name="report_file">it_parc.report_inventaire_document</field>
+        <field name="report_name">it_parc.report_historique_maintenance_document</field>
+        <field name="report_file">it_parc.report_historique_maintenance_document</field>
         <field name="binding_model_id" 
-               ref="model_it_equipement"/>
+               ref="model_it_intervention"/>
         <field name="binding_type">report</field>
     </record>
 
-    <template id="report_inventaire_document">
+    <!-- Template QWeb du rapport PDF Historique de Maintenance -->
+    <template id="report_historique_maintenance_document">
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div class="page">
@@ -27,78 +29,80 @@
                         </div>
                     </div>
                     <h2 class="text-center"
-                        style="color:#1a3c5e;">
-                        RAPPORT D'INVENTAIRE INFORMATIQUE
+                        style="color:#1a3c5e; margin-bottom: 20px;">
+                        HISTORIQUE DES MAINTENANCES
                     </h2>
                     <p class="text-center text-muted">
                         TECHPARK CI - Abidjan-Cocody
                     </p>
                     <hr/>
 
-                    <table class="table table-bordered table-sm">
+                    <table class="table table-bordered table-sm mt-4">
                         <thead style="background-color: #eeeeee; color: #000000;">
                             <tr>
                                 <th>Référence</th>
-                                <th>Nom</th>
-                                <th>Catégorie</th>
-                                <th>Marque</th>
-                                <th>N° Série</th>
-                                <th>Employé</th>
-                                <th>Département</th>
+                                <th>Équipement</th>
+                                <th>Type</th>
+                                <th>Technicien</th>
+                                <th>Date début</th>
+                                <th>Date fin</th>
+                                <th>Durée (h)</th>
+                                <th>Coût (FCFA)</th>
                                 <th>État</th>
-                                <th>Fin garantie</th>
-                                <th>Valeur (FCFA)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-foreach="docs" t-as="doc">
                                 <tr>
                                     <td>
-                                        <t t-esc="doc.reference"/>
-                                    </td>
-                                    <td>
                                         <t t-esc="doc.name"/>
                                     </td>
                                     <td>
-                                        <t t-esc="dict(doc._fields['categorie'].selection).get(doc.categorie)"/>
+                                        <t t-esc="doc.equipement_id.name"/>
                                     </td>
                                     <td>
-                                        <t t-esc="doc.marque or '-'"/>
+                                        <t t-esc="dict(doc._fields['type_intervention'].selection).get(doc.type_intervention) or doc.type_intervention"/>
                                     </td>
                                     <td>
-                                        <t t-esc="doc.numero_serie or '-'"/>
+                                        <t t-esc="doc.technicien_id.name or '-'"/>
                                     </td>
                                     <td>
-                                        <t t-esc="doc.employee_id.name or '-'"/>
+                                        <t t-esc="doc.date_debut"/>
                                     </td>
                                     <td>
-                                        <t t-esc="doc.department_id.name or '-'"/>
+                                        <t t-esc="doc.date_fin or '-'"/>
                                     </td>
                                     <td>
-                                        <t t-esc="dict(doc._fields['state'].selection).get(doc.state)"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="doc.date_garantie or '-'"/>
+                                        <t t-esc="'{:.1f}'.format(doc.duree)"/>
                                     </td>
                                     <td class="text-right">
-                                        <t t-esc="'{:,.0f}'.format(doc.valeur_achat)"/>
+                                        <t t-esc="'{:,.0f}'.format(doc.cout)"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="dict(doc._fields['state'].selection).get(doc.state) or doc.state"/>
                                     </td>
                                 </tr>
                             </t>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="9">
+                                <td colspan="6">
                                     <strong>
-                                        Total équipements :
+                                        Total interventions :
                                         <t t-esc="len(docs)"/>
+                                    </strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <t t-esc="'{:.1f}'.format(sum(docs.mapped('duree')))"/> h
                                     </strong>
                                 </td>
                                 <td class="text-right">
                                     <strong>
-                                        <t t-esc="'{:,.0f}'.format(sum(docs.mapped('valeur_achat')))"/> FCFA
+                                        <t t-esc="'{:,.0f}'.format(sum(docs.mapped('cout')))"/> FCFA
                                     </strong>
                                 </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -106,7 +110,7 @@
                     <div class="row mt-4">
                         <div class="col-12 text-right">
                             <small class="text-muted">
-                                Imprimé le
+                                TECHPARK CI - Imprimé le
                                 <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y à %H:%M')"/>
                             </small>
                         </div>

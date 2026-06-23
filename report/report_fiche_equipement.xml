@@ -20,6 +20,15 @@
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page">
+                        <t t-set="company" t-value="res_company"/>
+                        <div class="row mb-4 align-items-center">
+                            <div class="col-6">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height:45px;" alt="Logo"/>
+                            </div>
+                            <div class="col-6 text-end">
+                                <strong><span t-field="company.name"/></strong>
+                            </div>
+                        </div>
                         <div class="row mb-4">
                             <div class="col-12">
                                 <h2 class="text-center"
@@ -33,7 +42,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <table class="table table-bordered">
-                                    <thead style="background:#1a3c5e; color:white;">
+                                    <thead style="background-color: #eeeeee; color: #000000;">
                                         <tr>
                                             <th colspan="2">
                                                 Informations générales
@@ -88,7 +97,7 @@
                             </div>
                             <div class="col-6">
                                 <table class="table table-bordered">
-                                    <thead style="background:#1a3c5e; color:white;">
+                                    <thead style="background-color: #eeeeee; color: #000000;">
                                         <tr>
                                             <th colspan="2">
                                                 Affectation et garantie
@@ -150,7 +159,7 @@
                                     Historique des interventions
                                 </h4>
                                 <table class="table table-bordered table-sm">
-                                    <thead style="background:#1a3c5e; color:white;">
+                                    <thead style="background-color: #eeeeee; color: #000000;">
                                         <tr>
                                             <th>Référence</th>
                                             <th>Type</th>
