@@ -68,9 +68,12 @@ class ItParcDashboard extends Component {
                     datasets: [{
                         data: this.state.graphiques.categories?.data || [],
                         backgroundColor: [
-                            '#1a3c5e', '#2e6da4',
-                            '#c9a84c', '#4caf50',
-                            '#f44336', '#9e9e9e'
+                            '#1a73e8', // Google Blue
+                            '#34a853', // Google Green
+                            '#fbbc05', // Google Yellow
+                            '#ea4335', // Google Red
+                            '#8ab4f8', // Light Google Blue
+                            '#a8dab5'  // Light Google Green
                         ],
                     }]
                 },
@@ -78,10 +81,24 @@ class ItParcDashboard extends Component {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'right' },
+                        legend: { 
+                            position: 'right',
+                            labels: {
+                                font: {
+                                    family: 'Inter, -apple-system, sans-serif',
+                                    size: 11
+                                }
+                            }
+                        },
                         title: {
                             display: true,
-                            text: 'Équipements par catégorie'
+                            text: 'Équipements par catégorie',
+                            font: {
+                                family: 'Inter, -apple-system, sans-serif',
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            color: '#333333'
                         }
                     }
                 }
@@ -101,16 +118,43 @@ class ItParcDashboard extends Component {
                     datasets: [{
                         label: 'Interventions',
                         data: this.state.graphiques.interventions?.data || [],
-                        backgroundColor: '#1a3c5e',
+                        backgroundColor: '#1a73e8',
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
+                        legend: { display: false },
                         title: {
                             display: true,
-                            text: 'Interventions par mois'
+                            text: 'Interventions par mois',
+                            font: {
+                                family: 'Inter, -apple-system, sans-serif',
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            color: '#333333'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                font: {
+                                    family: 'Inter, -apple-system, sans-serif',
+                                    size: 11
+                                }
+                            }
+                        },
+                        y: {
+                            grid: { color: '#e5e7eb' },
+                            ticks: {
+                                font: {
+                                    family: 'Inter, -apple-system, sans-serif',
+                                    size: 11
+                                }
+                            }
                         }
                     }
                 }
@@ -133,6 +177,39 @@ class ItParcDashboard extends Component {
         this.action.doAction('it_parc.action_it_equipement');
     }
 
+    goToEquipementsAffectes() {
+        this.action.doAction({
+            type: 'ir.actions.act_window',
+            name: 'Équipements (Affectés)',
+            res_model: 'it.equipement',
+            view_mode: 'list,form',
+            views: [[false, 'list'], [false, 'form']],
+            domain: [['state', '=', 'affecte']],
+        });
+    }
+
+    goToEquipementsMaintenance() {
+        this.action.doAction({
+            type: 'ir.actions.act_window',
+            name: 'Équipements (En maintenance)',
+            res_model: 'it.equipement',
+            view_mode: 'list,form',
+            views: [[false, 'list'], [false, 'form']],
+            domain: [['state', '=', 'maintenance']],
+        });
+    }
+
+    goToEquipementsGarantiesCritiques() {
+        this.action.doAction({
+            type: 'ir.actions.act_window',
+            name: 'Équipements (Garantie < 30j)',
+            res_model: 'it.equipement',
+            view_mode: 'list,form',
+            views: [[false, 'list'], [false, 'form']],
+            domain: [['jours_garantie_restants', '<', 30]],
+        });
+    }
+
     goToAlertes() {
         this.action.doAction('it_parc.action_it_alerte');
     }
@@ -143,20 +220,6 @@ class ItParcDashboard extends Component {
 
     goToInterventions() {
         this.action.doAction('it_parc.action_it_intervention');
-    }
-
-    scrollToTop() {
-        const container = document.querySelector('.o_it_parc_dashboard');
-        if (container) {
-            container.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    }
-
-    scrollToBottom() {
-        const container = document.querySelector('.o_it_parc_dashboard');
-        if (container) {
-            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
-        }
     }
 }
 
