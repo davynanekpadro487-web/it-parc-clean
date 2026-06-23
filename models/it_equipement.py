@@ -128,3 +128,19 @@ class ItEquipement(models.Model):
 
     def action_brouillon(self):
         self.state = 'brouillon'
+
+
+class ReportInventaire(models.AbstractModel):
+    _name = 'report.it_parc.report_inventaire_document'
+    _description = "Rapport d'inventaire informatique"
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        docs = self.env['it.equipement'].browse(docids)
+        if not docs:
+            docs = self.env['it.equipement'].search([])
+        return {
+            'doc_ids': docids,
+            'doc_model': 'it.equipement',
+            'docs': docs,
+        }

@@ -8,6 +8,13 @@
         <field name="model">it.equipement</field>
         <field name="arch" type="xml">
             <list string="Équipements">
+                <header>
+                    <button name="%(it_parc.action_report_inventaire)s"
+                            string="Rapport Inventaire PDF"
+                            type="action"
+                            display="always"
+                            class="btn-primary"/>
+                </header>
                 <field name="reference"/>
                 <field name="name"/>
                 <field name="categorie"/>
@@ -54,6 +61,10 @@
                             string="Remettre en brouillon"
                             type="object"
                             invisible="state != 'retire'"/>
+                    <button name="%(it_parc.action_report_fiche_equipement)s"
+                            string="Imprimer fiche"
+                            type="action"
+                            class="btn-secondary"/>
                     <field name="state" 
                            widget="statusbar"
                            statusbar_visible="brouillon,affecte,maintenance,retire"/>
