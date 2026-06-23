@@ -46,7 +46,8 @@
                             invisible="state != 'en_cours'"/>
                     <field name="state" 
                            widget="statusbar"
-                           statusbar_visible="planifie,en_cours,termine"/>
+                           statusbar_visible="planifie,en_cours,termine"
+                           options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
                     <group>

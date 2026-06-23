@@ -67,7 +67,8 @@
                             class="btn-secondary"/>
                     <field name="state" 
                            widget="statusbar"
-                           statusbar_visible="brouillon,affecte,maintenance,retire"/>
+                           statusbar_visible="brouillon,affecte,maintenance,retire"
+                           options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
                     <div class="oe_title">

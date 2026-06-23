@@ -15,7 +15,10 @@
                 <field name="date_expiration"/>
                 <field name="jours_restants"
                        decoration-danger="jours_restants &lt; 30"/>
-                <field name="state" widget="badge"/>
+                <field name="state" widget="badge"
+                       decoration-danger="state == 'nouvelle'"
+                       decoration-success="state == 'traitee'"
+                       decoration-muted="state == 'ignoree'"/>
             </list>
         </field>
     </record>
@@ -27,8 +30,21 @@
         <field name="arch" type="xml">
             <form string="Alerte">
                 <header>
-                    <field name="state" 
-                           widget="statusbar"/>
+                    <field name="state"
+                           widget="statusbar"
+                           options="{'clickable': 1}"
+                           statusbar_visible="traitee,ignoree"
+                           invisible="state != 'nouvelle'"/>
+                    <field name="state"
+                           widget="statusbar"
+                           options="{'clickable': 0}"
+                           statusbar_visible="traitee"
+                           invisible="state != 'traitee'"/>
+                    <field name="state"
+                           widget="statusbar"
+                           options="{'clickable': 0}"
+                           statusbar_visible="ignoree"
+                           invisible="state != 'ignoree'"/>
                 </header>
                 <sheet>
                     <group>

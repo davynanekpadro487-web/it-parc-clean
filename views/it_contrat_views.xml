@@ -16,7 +16,10 @@
                 <field name="jours_restants"
                        decoration-danger="jours_restants &lt; 30"
                        decoration-warning="jours_restants &lt; 60"/>
-                <field name="state" widget="badge"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-danger="state == 'expired'"
+                       decoration-info="state == 'renewed'"/>
             </list>
         </field>
     </record>
@@ -28,9 +31,21 @@
         <field name="arch" type="xml">
             <form string="Contrat fournisseur">
                 <header>
-                    <field name="state" 
+                    <field name="state"
                            widget="statusbar"
-                           statusbar_visible="actif,expire,renouvele"/>
+                           options="{'clickable': 1}"
+                           statusbar_visible="expired"
+                           invisible="state != 'active'"/>
+                    <field name="state"
+                           widget="statusbar"
+                           options="{'clickable': 1}"
+                           statusbar_visible="renewed"
+                           invisible="state != 'expired'"/>
+                    <field name="state"
+                           widget="statusbar"
+                           options="{'clickable': 0}"
+                           statusbar_visible="renewed"
+                           invisible="state != 'renewed'"/>
                 </header>
                 <sheet>
                     <group>

@@ -52,6 +52,6 @@ class WizardRenouvellementContrat(models.TransientModel):
             'date_debut': self.nouvelle_date_debut,
             'date_fin': self.nouvelle_date_fin,
             'montant': self.nouveau_montant,
-            'state': 'renouvele',
+            'state': 'renewed',
         })
         return {'type': 'ir.actions.act_window_close'}

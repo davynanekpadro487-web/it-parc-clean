@@ -245,7 +245,7 @@
         <field name="date_debut">2026-01-01</field>
         <field name="date_fin">2026-07-15</field>
         <field name="montant">2500000</field>
-        <field name="state">actif</field>
+        <field name="state">active</field>
     </record>
 
     <record id="contrat_002" 
@@ -256,7 +256,7 @@
         <field name="date_debut">2025-07-01</field>
         <field name="date_fin">2026-06-30</field>
         <field name="montant">4800000</field>
-        <field name="state">actif</field>
+        <field name="state">active</field>
     </record>
 
     <record id="contrat_003" 
@@ -267,7 +267,7 @@
         <field name="date_debut">2026-01-15</field>
         <field name="date_fin">2027-01-15</field>
         <field name="montant">1800000</field>
-        <field name="state">actif</field>
+        <field name="state">active</field>
     </record>
 
     <!-- ═══════════════════════════════ -->

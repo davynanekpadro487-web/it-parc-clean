@@ -58,7 +58,7 @@ class WizardScanAlertes(models.TransientModel):
         contrats = self.env['it.contrat'].search([
             ('date_fin', '<=', str(limite)),
             ('date_fin', '>=', str(today)),
-            ('state', '=', 'actif'),
+            ('state', '=', 'active'),
         ])
         for ct in contrats:
             existing = self.env['it.alerte'].search([

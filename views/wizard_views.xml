@@ -144,7 +144,8 @@
                         string="Renouveler"
                         type="action"
                         class="btn-primary"
-                        invisible="state == 'renouvele'"/>
+                        context="{'default_contrat_id': id}"
+                        invisible="state != 'expired'"/>
             </xpath>
         </field>
     </record>

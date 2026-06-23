@@ -39,7 +39,7 @@ class ItDashboard(models.Model):
         contrats_critiques = Contrat.search_count([
             ('date_fin', '<=', str(limite_60j)),
             ('date_fin', '>=', str(today)),
-            ('state', '=', 'actif'),
+            ('state', '=', 'active'),
         ])
 
         # KPI 5 - Alertes nouvelles

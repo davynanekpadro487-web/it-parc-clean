@@ -7,7 +7,7 @@ access_it_intervention_technicien,it.intervention technicien,model_it_interventi
 access_it_intervention_manager,it.intervention manager,model_it_intervention,it_parc.group_it_manager,1,1,1,1
 access_it_contrat_technicien,it.contrat technicien,model_it_contrat,it_parc.group_it_technicien,1,1,0,0
 access_it_contrat_manager,it.contrat manager,model_it_contrat,it_parc.group_it_manager,1,1,1,1
-access_it_alerte_technicien,it.alerte technicien,model_it_alerte,it_parc.group_it_technicien,1,0,0,0
+access_it_alerte_technicien,it.alerte technicien,model_it_alerte,it_parc.group_it_technicien,1,1,0,0
 access_it_alerte_manager,it.alerte manager,model_it_alerte,it_parc.group_it_manager,1,1,1,1
 access_wizard_reaffectation,wizard.reaffectation,model_wizard_reaffectation,it_parc.group_it_technicien,1,1,1,1
 access_wizard_renouvellement_contrat,wizard.renouvellement.contrat,model_wizard_renouvellement_contrat,it_parc.group_it_technicien,1,1,1,1

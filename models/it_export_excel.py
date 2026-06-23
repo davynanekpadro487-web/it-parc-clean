@@ -334,7 +334,7 @@ class ItExportContrats(models.Model):
         
         contrats = self.search([
             ('date_fin', '<=', str(limite)),
-            ('state', '=', 'actif'),
+            ('state', '=', 'active'),
         ], order='date_fin asc')
         
         types = dict(
